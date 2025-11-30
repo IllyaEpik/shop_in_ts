@@ -21,6 +21,7 @@ model Purchase {
     overallStatus       String   
     shippingAddress     String 
     items               PurchasedItem[] 
+    paymentMethod       String
 }
 model PurchasedItem {
     id                      Int      @id @default(autoincrement())
@@ -30,6 +31,7 @@ model PurchasedItem {
     productName             String
     unitPrice               Float 
     quantity                Int
+    maxPurchaseQuantity     Int?
     totalPrice              Float
     deliveryStatus          String   @default("PENDING_SHIPMENT")
     estimatedDeliveryDate   DateTime?
