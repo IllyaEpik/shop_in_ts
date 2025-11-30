@@ -12,3 +12,25 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Purchase {
+    id                  Int      @id @default(autoincrement())
+    userId              Int
+    purchaseDate        DateTime @default(now()) 
+    grandTotal          Float 
+    overallStatus       String   
+    shippingAddress     String 
+    items               PurchasedItem[] 
+}
+model PurchasedItem {
+    id                      Int      @id @default(autoincrement())
+    purchaseId              Int
+    purchase                Purchase @relation(fields: [purchaseId], references: [id])
+    productId               Int
+    productName             String
+    unitPrice               Float 
+    quantity                Int
+    totalPrice              Float
+    deliveryStatus          String   @default("PENDING_SHIPMENT")
+    estimatedDeliveryDate   DateTime?
+}
