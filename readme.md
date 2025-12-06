@@ -12,7 +12,7 @@ We chose this project because we think it will be interesting to create. And we 
 
 ## Участники команди/ Team members 
 
-- [Илья Эпик](https://github.com/IllyaEpik)  |  [Illya Epic:Teamlead](https://github.com/IllyaEpik)
+- [Илья Эпик](https://github.com/IllyaEpik)  |  [Illya Epik:Teamlead](https://github.com/IllyaEpik)
 - [Ренат Белей](https://github.com/Renat19Belei)  |  [Renat Belei](https://github.com/Renat19Belei)
 - [Попович Марк](https://github.com/markpopovich9)  |  [Popovych Mark](https://github.com/markpopovich9)
 

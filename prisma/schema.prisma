@@ -10,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 model Purchase {
@@ -35,4 +35,18 @@ model PurchasedItem {
     totalPrice              Float
     deliveryStatus          String   @default("PENDING_SHIPMENT")
     estimatedDeliveryDate   DateTime?
+}
+
+model Product {
+	id                Int @default(autoincrement()) @id
+    price             Int
+    discount          Int
+    description       String
+    name              String
+    quantityLimit     Int
+}
+
+model User {
+    id              Int @default(autoincrement()) @id
+    
 }
