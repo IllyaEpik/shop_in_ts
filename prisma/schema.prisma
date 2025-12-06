@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Purchase {
+    id                  Int      @id @default(autoincrement())
+    userId              Int
+    purchaseDate        DateTime @default(now()) 
+    grandTotal          Float 
+    overallStatus       String   
+    shippingAddress     String 
+    items               PurchasedItem[] 
+    paymentMethod       String
+}
+model PurchasedItem {
+    id                      Int      @id @default(autoincrement())
+    purchaseId              Int
+    purchase                Purchase @relation(fields: [purchaseId], references: [id])
+    productId               Int
+    productName             String
+    unitPrice               Float 
+    quantity                Int
+    maxPurchaseQuantity     Int?
+    totalPrice              Float
+    deliveryStatus          String   @default("PENDING_SHIPMENT")
+    estimatedDeliveryDate   DateTime?
+}
