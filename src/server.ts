@@ -1,10 +1,13 @@
 import express from "express";
+import productRouter from "./Product/productRouter";
 
+const app = express();
 
-const app = express()
-const PORT = 8000
-const HOST = "127.0.0.1"
+app.use(express.json());
+app.use("/products", productRouter);
 
-app.listen(PORT,HOST, () =>{ 
-    console.log(`http://${HOST}:${PORT}`)
-})
+const PORT = 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

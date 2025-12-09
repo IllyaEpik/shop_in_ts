@@ -15,3 +15,10 @@ import type{ Request, Response } from "express";
 //     name: string;
 //     quantityLimit: int; 
 // }
+export interface ProductInput {
+    name: string;
+    description: string;
+    price: number;
+    discount: number;
+    quantityLimit: number;
+}
