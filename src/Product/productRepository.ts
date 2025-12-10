@@ -1,7 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+
+import prisma from "../db/prismaDB";
 import { ProductInput } from "./productTypes";
 
-const prisma = new PrismaClient();
+// prisma
+// const prisma = new PrismaClient();
 export const productRepository = {
     create(data: ProductInput) {
         return prisma.product.create({ data });
