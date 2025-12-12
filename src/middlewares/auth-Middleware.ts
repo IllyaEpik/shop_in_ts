@@ -3,9 +3,6 @@ import type{UserSecurity,IJWT } from "../User/UserTypes";
 import SECRET_KEY from "../config/env";
 import jwt from "jsonwebtoken";
 
-// type IAuthMiddleware = (
-//     req:Request,
-//     res:Response) => Promise<void>
 async function authMiddleware(
     req:Request<object, UserSecurity | string, object>,
     res:Response<any>,

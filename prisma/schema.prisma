@@ -6,9 +6,9 @@
 // import "dotenv/config";
 // import { env } from "prisma/config";
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
-  // engineType = "client"
+	provider = "prisma-client-js"
+	output   = "../src/generated/prisma"
+	// engineType = "client"
 }
 
 datasource db {
@@ -39,22 +39,22 @@ model PurchasedItem {
     estimatedDeliveryDate   DateTime?
 }
 model Parameter {
-  id          Int     @id @default(autoincrement())
-  title       String
-  bigText     String
-  description String
+	id          Int     @id @default(autoincrement())
+	title       String
+	bigText     String
+	description String
 
-  
-  products    Product[]
+	
+	products    Product[]
 }
 
 model Block {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String
-  demo        String?   
-  product     Product?  @relation(fields: [productId], references: [id])
-  productId   Int?
+	id          Int       @id @default(autoincrement())
+	title       String
+	description String
+	demo        String?   
+	product     Product?  @relation(fields: [productId], references: [id])
+	productId   Int?
 }
 
 
@@ -69,29 +69,29 @@ model Product {
     parameterId     Int?
     parameter       Parameter? @relation(fields: [parameterId], references: [id])
 
-  blocks          Block[]
-
+  	blocks          Block[]
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
-  password   String
-  name       String?
-  lastName   String?
-  fatherName String?
-  cardNumber String?
-  phoneNumber String?
-  addresses  Address[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+	id         Int       @id @default(autoincrement())
+	email      String    @unique
+	password   String
+	name       String?
+	lastName   String?
+	fatherName String?
+	cardNumber String?
+	phoneNumber String?
+	addresses  Address[]
+	createdAt  DateTime  @default(now())
+	updatedAt  DateTime  @updatedAt
 }
+
 model Address {
-  id         Int    @id @default(autoincrement())
-  user       User   @relation(fields: [userId], references: [id])
-  userId     Int
-  country    String?
-  city       String?
-  street     String?
-  house      String?
+	id         Int    @id @default(autoincrement())
+	user       User   @relation(fields: [userId], references: [id])
+	userId     Int
+	country    String?
+	city       String?
+	street     String?
+	house      String?
 }
