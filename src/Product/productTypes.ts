@@ -1,4 +1,4 @@
-import type{ Request, Response } from "express";
+
 
 
 // export interface IProduct {
@@ -15,3 +15,25 @@ import type{ Request, Response } from "express";
 //     name: string;
 //     quantityLimit: int; 
 // }
+export interface CreateParameterInput {
+  key: string;
+  value: string;
+}
+
+export interface CreateBlockInput {
+  title: string;
+  description: string;
+  demo?: string;
+  parameters: CreateParameterInput[];
+}
+
+export interface CreateProductInput {
+  name: string;
+  description: string;
+  price: number;
+  discount: number;
+  quantityLimit: number;
+
+  images: string[];
+  blocks: CreateBlockInput[];
+}

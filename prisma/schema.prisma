@@ -36,40 +36,54 @@ model PurchasedItem {
     deliveryStatus          String   @default("PENDING_SHIPMENT")
     estimatedDeliveryDate   DateTime?
 }
-model Parameter {
-  id          Int     @id @default(autoincrement())
-  title       String
-  bigText     String
-  description String
+model Product {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String
+  price         Int
+  discount      Int
+  quantityLimit Int
 
-  
-  products    Product[]
+  blocks        Block[]
+  images        Image[]
+
+  createdAt     DateTime @default(now())
 }
 
 model Block {
-  id          Int       @id @default(autoincrement())
-  title       String
+  id        Int      @id @default(autoincrement())
+  title     String
   description String
-  demo        String?   
-  product     Product?  @relation(fields: [productId], references: [id])
-  productId   Int?
+  demo      String?
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  parameters Parameter[]
+}
+
+model Parameter {
+  id      Int    @id @default(autoincrement())
+  key     String
+  value   String
+
+  blockId Int
+  block   Block @relation(fields: [blockId], references: [id])
+}
+
+model Image {
+  id        Int    @id @default(autoincrement())
+  url       String
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 
 
-model Product {
-	id                Int @default(autoincrement()) @id
-    price             Int
-    discount          Int
-    description       String
-    name              String
-    quantityLimit     Int
-    parameterId     Int?
-    parameter       Parameter? @relation(fields: [parameterId], references: [id])
 
-  blocks          Block[]
 
-}
+
 
 model User {
   id         Int       @id @default(autoincrement())
