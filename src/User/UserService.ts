@@ -1,4 +1,3 @@
-
 import { IServiceContract } from "./UserTypes";
 import { repositoryMethods } from "./UserRepository";
 import jwt from "jsonwebtoken";

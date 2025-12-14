@@ -15,29 +15,6 @@ datasource db {
   provider = "sqlite"
 }
 
-model Purchase {
-    id                  Int      @id @default(autoincrement())
-    userId              Int
-    purchaseDate        DateTime @default(now()) 
-    grandTotal          Float 
-    overallStatus       String   
-    shippingAddress     String 
-    items               PurchasedItem[] 
-    paymentMethod       String
-}
-model PurchasedItem {
-    id                      Int      @id @default(autoincrement())
-    purchaseId              Int
-    purchase                Purchase @relation(fields: [purchaseId], references: [id])
-    productId               Int
-    productName             String
-    unitPrice               Float 
-    quantity                Int
-    maxPurchaseQuantity     Int?
-    totalPrice              Float
-    deliveryStatus          String   @default("PENDING_SHIPMENT")
-    estimatedDeliveryDate   DateTime?
-}
 model Parameter {
 	id          Int     @id @default(autoincrement())
 	title       String
@@ -45,31 +22,30 @@ model Parameter {
 	description String
 
 	
-	products    Product[]
+    product       Product @relation(fields: [productId], references: [id])
+    productId     Int
 }
 
 model Block {
 	id          Int       @id @default(autoincrement())
 	title       String
 	description String
-	demo        String?   
-	product     Product?  @relation(fields: [productId], references: [id])
-	productId   Int?
+	demo        String?
+	product     Product  @relation(fields: [productId], references: [id])
+	productId   Int
 }
 
 
 
 model Product {
-	  id                Int @default(autoincrement()) @id
+	id                Int @default(autoincrement()) @id
     price             Int
     discount          Int
     description       String
     name              String
     quantityLimit     Int
-    parameterId     Int?
-    parameter       Parameter? @relation(fields: [parameterId], references: [id])
-
-  	blocks          Block[]
+	parametrs         Parameter[]
+  	blocks            Block[]
 }
 
 model User {
