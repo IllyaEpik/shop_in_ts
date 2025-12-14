@@ -1,5 +1,5 @@
 import express from "express";
-import authRouter from "./User/UserRouter.ts";
+import authRouter from "./User/UserRouter.js";
 
 const app = express();
 app.use(express.json());
