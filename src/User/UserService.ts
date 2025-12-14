@@ -9,19 +9,19 @@ export const ServiceMethods:IServiceContract = {
         user.password = await hash(user.password,10)
         const createdUser = await repositoryMethods.createUser(user)
         if (!createdUser){
-            return "error"
+            return "error|400"
         }
         const token = await jwt.sign(
               { id: createdUser.id },
               JWT_SECRET,
               { expiresIn: "7d" }
         );
-        return token
+        return token + "|200"
     },
     login: async (userData)=>{
         const gottenUser = await repositoryMethods.getUserByEmail(userData.email)
         if (!gottenUser){
-            return "error"
+            return "error|400"
         }
         const checkPassword = await compare(userData.password,gottenUser.password)
         if (!checkPassword){
@@ -32,18 +32,18 @@ export const ServiceMethods:IServiceContract = {
               JWT_SECRET,
               { expiresIn: "7d" }
         );
-        return token
+        return token + "|200"
     },
     me: async (id) => {
         const gottenUser = await repositoryMethods.getUserById(id)
         if (gottenUser==null){
-            return "error"
+            return "error|400"
         }
         const token = await jwt.sign(
               { id: gottenUser.id },
               JWT_SECRET,
               { expiresIn: "7d" }
         );
-        return token
+        return token + "|200"
     },
 }

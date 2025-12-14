@@ -6,7 +6,7 @@
 // import "dotenv/config";
 // import { env } from "prisma/config";
 generator client {
-	provider = "prisma-client-js"
+	provider = "prisma-client-ts"
 	output   = "../src/generated/prisma"
 	// engineType = "client"
 }

@@ -17,6 +17,38 @@ We chose this project because we think it will be interesting to create. And we 
 - [Попович Марк](https://github.com/markpopovich9)  |  [Popovych Mark](https://github.com/markpopovich9)
 
 
+##  ендпоінти/ Endpoints
+- user/
+  - register/  |  Реєстрація користувача 201
+  - login/  |  Логін користувача 200
+  - me/  |  Отримати інформацію про себе 200
+  
+
+
+- /products  |  Products
+  - create/  |  Створити продукт 201
+  - get/  |  Отримати всі продукти 200
+  - get/:id  |  Отримати продукт по id 200
+  - update/:id  |  Оновити продукт по id 200
+  - delete/:id  |  Видалити продукт по id 204
+
+- /orders  |  Orders
+  - buy/:productId  |  Купити продукт 201
+  - get/  |  Отримати всі замовлення 200
+  - get/:id  |  Отримати замовлення по id 200
+  - rate/:id  |  Оцінити продукт по id 200
+  - complete/:id  |  Завершити замовлення по id 200
+  - get/products  |  Отримати всі продукти в замовленнях 200
+
+
+- /categories  |  Categories
+  - create/  |  Створити категорію 201
+  - get/  |  Отримати всі категорії 200
+  - get/:id  |  Отримати категорію по id 200
+  - update/:id  |  Оновити категорію по id 200
+  - delete/:id  |  Видалити категорію по id 204
+
+
 ## Технології які будемо використовувати/ Technologies we will use
   ### -TypeScript — надбудова над JavaScript, що додає статичну типізацію. Завдяки цьому помилки легше знаходити під час розробки, а великі проєкти стають надійнішими.
 

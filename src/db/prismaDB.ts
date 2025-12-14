@@ -1,5 +1,13 @@
-import { PrismaClient  } from "../generated/prisma/index";
 
-const prisma = new PrismaClient();
-// export type Prisma
-export default prisma
+
+// import { PrismaLibSQL } from '@prisma/adapter-libsql'    
+import { PrismaClient } from '../generated/prisma/client'
+import { PrismaLibSql } from '@prisma/adapter-libsql';
+
+const adaptr = new PrismaLibSql({
+  url: "file:./dev.db"
+})
+const prisma = new PrismaClient({
+  adapter:adaptr
+})
+export default prisma;

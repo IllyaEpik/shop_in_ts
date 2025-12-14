@@ -1,12 +1,13 @@
 import express from "express";
+import authRouter from "./User/UserRouter";
 import productRouter from "./Product/productRouter";
-import authRouter from "./User/UserRouter.js";
+// import productRouter from "./Product/productRouter";
 
 const app = express();
 
 app.use(express.json());
 app.use("/products", productRouter);
-app.use("/auth", authRouter);
+app.use("/user", authRouter);
 
 
 const PORT = 8000
