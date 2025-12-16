@@ -8,3 +8,25 @@ export interface ProductInput {
     discount: number;
     quantityLimit: number;
 }
+export interface CreateParameterInput {
+  key: string;
+  value: string;
+}
+
+export interface CreateBlockInput {
+  title: string;
+  description: string;
+  demo?: string;
+  parameters: CreateParameterInput[];
+}
+
+export interface CreateProductInput {
+  name: string;
+  description: string;
+  price: number;
+  discount: number;
+  quantityLimit: number;
+
+  images: string[];
+  blocks: CreateBlockInput[];
+}

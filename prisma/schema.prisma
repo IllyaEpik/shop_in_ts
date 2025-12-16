@@ -46,6 +46,8 @@ model Product {
     quantityLimit     Int
 	parametrs         Parameter[]
   	blocks            Block[]
+	categoryId        Int
+	category 		  Category @relation(fields: [categoryId], references: [id])
 }
 
 model User {
@@ -70,4 +72,10 @@ model Address {
 	city       String?
 	street     String?
 	house      String?
+}
+model Category{
+	id Int @id @default(autoincrement()) 
+	urlName String
+	name String
+	products  Product[]
 }
