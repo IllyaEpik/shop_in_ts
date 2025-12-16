@@ -35,6 +35,32 @@ model Block {
 	productId   Int
 }
 
+enum DeliveryStatus {
+  COLLECTED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+model Order {
+  id             Int            @id @default(autoincrement())
+  deliveryStatus DeliveryStatus @default(COLLECTED)
+
+  createdAt      DateTime       @default(now())
+
+  items          OrderItem[]
+}
+
+model OrderItem {
+  id                  Int     @id @default(autoincrement())
+  orderId             Int
+  productId           Int
+  quantity            Int
+  unitPriceAtPurchase Float
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
 
 
 model Product {
@@ -46,6 +72,7 @@ model Product {
     quantityLimit     Int
 	parametrs         Parameter[]
   	blocks            Block[]
+	orderItems     OrderItem[] 
 }
 
 model User {
@@ -71,3 +98,5 @@ model Address {
 	street     String?
 	house      String?
 }
+
+
