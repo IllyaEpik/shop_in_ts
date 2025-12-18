@@ -1,39 +1,66 @@
-
-
-import { IControllerContract } from "./UserTypes";
+import { Request, Response } from "express";
 import { ServiceMethods } from "./UserService";
 import { checkAndSend } from "../config/sender";
+import { IControllerContract } from "./UserTypes";
 
-export const controllerMethods:IControllerContract = {
-	
-	registation: async (req, res) => {
-		const userData = req.body
-        console.log(userData)
-        if (!userData){
-            res.status(422).json("server can't get body ")
+export const controllerMethods: IControllerContract = {
+    registation: async (req, res) => {
+        const { email, password, name, lastName } = req.body;
+        if (!email || !password || !name || !lastName) {
+            res.status(422).json("Некоректні дані при реєстрації");
+            return;
         }
-        const user = await ServiceMethods.registation(userData)
-        checkAndSend(user,res)
-        // res.status(200).json(user)
-	},
-	login: async (req,res) => {
-		const userData = req.body
-        if (!userData){
-            res.status(422).json("server can't get body")
+        const result = await ServiceMethods.registation(req.body);
+        checkAndSend(result, res);
+    },
+    login: async (req, res) => {
+        const result = await ServiceMethods.login(req.body);
+        checkAndSend(result, res);
+    },
+    me: async (req, res) => {
+        const result = await ServiceMethods.me(res.locals.userId);
+        checkAndSend(result, res);
+    },
+    addAddress: async (req, res) => {
+        const { city, street } = req.body;
+        if (!city || !street) {
+            res.status(422).json("Некореекні дані при додаванні адреси");
+            return;
         }
-        
-        const user = await ServiceMethods.login(userData)
-        checkAndSend(user,res)
-        // res.status(200).json(user)
-	},
-	me: async (req,res) => {
-        const id = res.locals.userId
-        
-        const user = await ServiceMethods.me(id)
+        const result = await ServiceMethods.addAddress(res.locals.userId, city, street);
+        checkAndSend(result, res);
+    },
+    getAddresses: async (req, res) => {
+        const result = await ServiceMethods.getAllAddresses(res.locals.userId);
+        checkAndSend(result, res);
+    },
 
-        checkAndSend(user,res)
-		// res.status(200).json(user)
 
-        
+    updateAddress: async (req, res) => {
+        const { city, street } = req.body;
+        if (!city || !street) {
+            res.status(422).json("Некоректні дані при оновленні адреси");
+            return;
+        }
+        const result = await ServiceMethods.updateAddress(
+            res.locals.userId, 
+            Number(req.params.id), 
+            city, 
+            street
+        );
+        checkAndSend(result, res);
+    },
+    removeAddress: async (req, res) => {
+        const result = await ServiceMethods.removeAddress(res.locals.userId, Number(req.params.id));
+        checkAndSend(result, res);
+    },
+
+    updateMe: async (req, res) => {
+        const result = await ServiceMethods.updateMe(res.locals.userId, req.body);
+        checkAndSend(result, res);
+    },
+    deleteAccount: async (req, res) => {
+        const result = await ServiceMethods.deleteMe(res.locals.userId);
+        checkAndSend(result, res);
     }
-}
+};

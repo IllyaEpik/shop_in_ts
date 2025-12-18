@@ -1,32 +1,11 @@
-import type{ Request, Response } from "express";
-// import Prisma from "../db/prisma";
+import type { Request, Response } from "express";
 import { Prisma } from "../generated/prisma/client";
-// import {  } from "../generated/prisma/client";
-// import { Prisma } from "../generated/prisma/browser";
-// Prisma
-export type UserSecurity = Prisma.UserGetPayload<{
-    omit:{
-        id:true
-        password:true
-    }
-}>;
-export type IUser = Prisma.UserGetPayload<{
-}>
-export type UserWithoutId = Prisma.UserGetPayload<{
-    omit:{
-        id:true
-    }
-}>
-export type UserCreate = Prisma.UserUncheckedCreateInput
-export type UserSecurityWithId = Prisma.UserGetPayload<{
-    omit:{
-        password:true
-    }
-}>
-export interface IJWT{
-    id:number
-}
-export type UserLogin = UserCreate
+
+export type UserCreate = Prisma.UserUncheckedCreateInput;
+export type UserLogin = any; 
+export type UserSecurity = any;
+
+
 
 export interface IControllerContract {
     registation: (
@@ -41,16 +20,38 @@ export interface IControllerContract {
         req:Request<object, UserSecurity | string, object>,
         res:Response<string | UserSecurity | null, {userId:number}>
     ) => Promise<void>
+    // registation: (req: Request, res: Response) => Promise<void>;
+    // login: (req: Request, res: Response) => Promise<void>;
+    // me: (req: Request, res: Response) => Promise<void>;
+    addAddress: (req: Request, res: Response) => Promise<void>;
+    getAddresses: (req: Request, res: Response) => Promise<void>;
+    updateAddress: (req: Request, res: Response) => Promise<void>;
+    removeAddress: (req: Request, res: Response) => Promise<void>;
+    updateMe: (req: Request, res: Response) => Promise<void>;
+    deleteAccount: (req: Request, res: Response) => Promise<void>;
 }
 
 export interface IRepositoryContract {
-    createUser: (user:UserCreate) => Promise<UserSecurityWithId | null>
-    getUserByEmail: (email:string) => Promise<IUser | null>
-    getUserById: (id:number)=> Promise<UserSecurityWithId | null>
+    createUser: (user: any) => Promise<any>;
+    getUserByEmail: (email: string) => Promise<any>;
+    getUserById: (id: number) => Promise<any>;
+    createAddress: (userId: number, city: string, street: string) => Promise<any>;
+    getAddresses: (userId: number) => Promise<any[]>;
+    getAddressById: (id: number) => Promise<any | null>;
+    updateAddress: (id: number, city: string, street: string) => Promise<any>;
+    deleteAddress: (id: number) => Promise<any>;
+    updateUser: (id: number, data: any) => Promise<any>;
+    deleteUser: (id: number) => Promise<any>;
 }
-
 export interface IServiceContract {
-    registation: (user:UserCreate) => Promise<string>
-    login: (userData:UserLogin) => Promise<string>
-    me: (id:number) => Promise<UserSecurity | null | string>
+    registation: (user: any) => Promise<string>;
+    login: (userData: any) => Promise<string>;
+    me: (id: number) => Promise<string>;
+
+    addAddress: (userId: number, city: string, street: string) => Promise<string>;
+    getAllAddresses: (userId: number) => Promise<string>;
+    updateAddress: (userId: number, addressId: number, city: string, street: string) => Promise<string>;
+    removeAddress: (userId: number, addressId: number) => Promise<string>;
+    updateMe: (userId: number, data: any) => Promise<string>;
+    deleteMe: (userId: number) => Promise<string>;
 }
