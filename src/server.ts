@@ -1,7 +1,7 @@
 import express from "express";
 import authRouter from "./User/UserRouter";
 import productRouter from "./Product/productRouter";
-import { categoryRouter } from './Category/category.router';
+import { categoryRouter } from './Category/categoryRouter';
 // import productRouter from "./Product/productRouter";
 
 const app = express();
