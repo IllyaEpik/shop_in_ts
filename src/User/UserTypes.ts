@@ -41,11 +41,6 @@ export interface IControllerContract {
         req:Request<object, UserSecurity | string, object>,
         res:Response<string | UserSecurity | null, {userId:number}>
     ) => Promise<void>
-    // checkAndSend: (
-    //     data:string | UserSecurity | null,
-    //     res:Response<string | UserSecurity | null>,
-        
-    // ) => Promise<void>
 }
 
 export interface IRepositoryContract {

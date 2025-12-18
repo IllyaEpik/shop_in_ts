@@ -1,29 +1,29 @@
 import prisma from "../db/prismaDB"; 
-import { ICategory, ICategoryInput } from './categoryTypes';
+import { ICategory, IRepositoryContract } from './categoryTypes';
 
-export class CategoryRepository {
-    async create(data: ICategoryInput): Promise<ICategory> {
-        return prisma.category.create({ data });
-    }
-    async findAll(): Promise<ICategory[]> {
-        return prisma.category.findMany({
+export const CategoryRepository:IRepositoryContract ={
+    create: async (data) =>{
+        return await prisma.category.create({ data });
+    },
+    findAll: async () => {
+        return await prisma.category.findMany({
             orderBy: { name: 'asc' },
         });
-    }
-    async findById(id: number): Promise<ICategory | null> {
-        return prisma.category.findUnique({ where: { id } });
-    }
-    async findByUrlName(urlName: string): Promise<ICategory | null> {
-        return prisma.category.findUnique({ where: { urlName } });
-    }
+    },
+    async findById(id) {
+        return await prisma.category.findUnique({ where: { id } });
+    },
+    async findByUrlName(urlName) {
+        return await prisma.category.findUnique({ where: { urlName } });
+    },
 
-    async update(id: number, data: ICategoryInput): Promise<ICategory> {
-        return prisma.category.update({
+    async update(id, data) {
+        return await prisma.category.update({
             where: { id },
             data,
         });
-    }
-    async delete(id: number): Promise<ICategory> {
-        return prisma.category.delete({ where: { id } });
+    },
+    async delete(id) {
+        return await prisma.category.delete({ where: { id } });
     }
 }

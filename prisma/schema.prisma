@@ -12,7 +12,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  	provider = "sqlite"
 }
 
 model Parameter {
@@ -35,6 +35,33 @@ model Block {
 	productId   Int
 }
 
+enum DeliveryStatus {
+	COMPLETED
+	COLLECTED
+	IN_TRANSIT
+	DELIVERED
+	RECIVED
+	CANCELLED
+}
+model Order {
+	id             Int            @id @default(autoincrement())
+	deliveryStatus DeliveryStatus @default(COLLECTED)
+
+	createdAt      DateTime       @default(now())
+
+	items          OrderItem[]
+}
+
+model OrderItem {
+  id                  Int     @id @default(autoincrement())
+  orderId             Int
+  productId           Int
+  quantity            Int
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
 
 
 model Product {
@@ -48,6 +75,7 @@ model Product {
   	blocks            Block[]
 	categoryId        Int
 	category 		  Category @relation(fields: [categoryId], references: [id])
+	orderItems     OrderItem[] 
 }
 
 model User {
@@ -75,7 +103,7 @@ model Address {
 }
 model Category{
 	id Int @id @default(autoincrement()) 
-	urlName String
+	urlName String @unique
 	name String
 	products  Product[]
 }

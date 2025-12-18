@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { CategoryService } from './categoryService';
 
-const categoryService = new CategoryService();
+// const categoryService = new CategoryService();
 
 export class CategoryController {
     async create(req: Request, res: Response): Promise<void> {
         try {
-            const newCategory = await categoryService.createCategory(req.body);
+            const newCategory = await CategoryService.createCategory(req.body);
             res.status(201).json(newCategory);
         } catch (error) {
             if (error instanceof Error) {
@@ -18,7 +18,7 @@ export class CategoryController {
     }
     async findAll(req: Request, res: Response): Promise<void> {
         try {
-            const categories = await categoryService.getAllCategories();
+            const categories = await CategoryService.getAllCategories();
             res.status(200).json(categories);
         } catch (error) {
             res.status(500).json({ error: 'Failed to fetch categoriees' });
@@ -27,7 +27,7 @@ export class CategoryController {
     async findById(req: Request, res: Response): Promise<void> {
         try {
             const id = parseInt(req.params.id);
-            const category = await categoryService.getCategoryById(id);
+            const category = await CategoryService.getCategoryById(id);
             
             if (category) {
                 res.status(200).json(category);
@@ -41,7 +41,7 @@ export class CategoryController {
     async update(req: Request, res: Response): Promise<void> {
         try {
             const id = parseInt(req.params.id);
-            const updatedCategory = await categoryService.updateCategory(id, req.body);
+            const updatedCategory = await CategoryService.updateCategory(id, req.body);
             res.status(200).json(updatedCategory);
         } catch (error) {
             if (error instanceof Error) {
@@ -54,7 +54,7 @@ export class CategoryController {
     async delete(req: Request, res: Response): Promise<void> {
         try {
             const id = parseInt(req.params.id);
-            await categoryService.deleteCategory(id);
+            await CategoryService.deleteCategory(id);
             res.status(204).send();
         } catch (error) {
             if (error instanceof Error) {
