@@ -1,8 +1,8 @@
 import { productRepository } from "./productRepository";
-import { ProductInput } from "./productTypes";
+import {CreateProductInput, CreateProductInputWithCategory, ProductInput } from "./productTypes";
 
 export const productService = {
-    createProduct(data: ProductInput) {
+    createProduct(data: CreateProductInputWithCategory) {
         return productRepository.create(data);
     },
     updateProduct(id: number, data: ProductInput) {

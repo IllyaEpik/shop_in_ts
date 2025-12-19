@@ -1,12 +1,18 @@
 
 import prisma from "../db/prismaDB";
-import { ProductInput } from "./productTypes";
+import { CreateProductInput, CreateProductInputWithCategory, ProductInput } from "./productTypes";
 
 // prisma
 // const prisma = new PrismaClient();
 export const productRepository = {
-    create(data: ProductInput) {
-        return prisma.product.create({ data });
+    create(data: CreateProductInputWithCategory) {
+        const { categoryId, ...other } = data;
+        return prisma.product.create({
+            data: {
+                ...other,
+                category: { connect: { id: categoryId } }
+            }
+        });
     },
     
     update(id: number, data: ProductInput) {

@@ -4,7 +4,9 @@ import { Prisma } from "../generated/prisma/client";
 export type UserCreate = Prisma.UserUncheckedCreateInput;
 export type UserLogin = any; 
 export type UserSecurity = any;
-
+export interface IJWT{
+    id:number
+}
 
 
 export interface IControllerContract {

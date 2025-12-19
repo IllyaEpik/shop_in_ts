@@ -1,5 +1,5 @@
 import prisma from "../db/prismaDB"; 
-import { ICategory, IRepositoryContract } from './categoryTypes';
+import {IRepositoryContract } from './categoryTypes';
 
 export const CategoryRepository:IRepositoryContract ={
     create: async (data) =>{
