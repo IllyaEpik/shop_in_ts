@@ -20,13 +20,18 @@ export interface CreateBlockInput {
   parameters: CreateParameterInput[];
 }
 
-export interface CreateProductInput {
-  name: string;
-  description: string;
-  price: number;
-  discount: number;
-  quantityLimit: number;
+// export interface CreateProductInput {
+//   name: string;
+//   description: string;
+//   price: number;
+//   discount: number;
+//   quantityLimit: number;
 
-  images: string[];
-  blocks: CreateBlockInput[];
+//   images: string[];
+//   blocks: CreateBlockInput[];
+// }
+// type category = Prisma.CategoryCreateNestedOneWithoutProductsInput
+export type CreateProductInput = Omit<Prisma.ProductCreateInput, "category">
+export type CreateProductInputWithCategory = CreateProductInput & {
+  categoryId:number
 }

@@ -2,23 +2,34 @@ import type { Request, Response } from "express";
 import { Prisma } from "../generated/prisma/client";
 
 export type UserCreate = Prisma.UserUncheckedCreateInput;
-export type UserLogin = any; 
-export type UserSecurity = any;
-
+export type UserLogin = Prisma.UserGetPayload<{
+    select:{
+        password:true,
+        email:true
+    }
+}>;; 
+export type UserSecurity = Prisma.UserGetPayload<{
+    omit:{
+        password:true
+    }
+}>;
+export interface IJWT{
+    id:number
+}
 
 
 export interface IControllerContract {
     registation: (
-        req:Request<object, UserSecurity | string, UserCreate>,
-        res:Response<string | UserSecurity | null>
+        req:Request<object, string, UserLogin>,
+        res:Response<string>
     ) => Promise<void>
     login: (
-        req:Request<object, UserSecurity | string, UserLogin>,
-        res:Response<string | UserSecurity | null>
+        req:Request<object, string, UserLogin>,
+        res:Response<string>
     ) => Promise<void>
     me: (
         req:Request<object, UserSecurity | string, object>,
-        res:Response<string | UserSecurity | null, {userId:number}>
+        res:Response<string | UserSecurity | string, {userId:number}>
     ) => Promise<void>
     // registation: (req: Request, res: Response) => Promise<void>;
     // login: (req: Request, res: Response) => Promise<void>;
