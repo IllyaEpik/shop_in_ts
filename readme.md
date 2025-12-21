@@ -129,7 +129,7 @@ GET /user/me
   "createdAt": "2024-01-01T00:00:00.000Z",
   "updatedAt": "2024-01-01T00:00:00.000Z"
 }
-
+```
 </details>
 
 ###
@@ -395,7 +395,7 @@ must have token in header
 | :--- | :---: | ---: |
 | buy/:productId  |  Купити продукт | 201
 | get/ |  Отримати всі замовлення | 200 -->
-#
+<!-- #
 #
 #
 ### Buy Product
@@ -422,11 +422,11 @@ POST /orders/buy/:productId
 {
   "products": [0,1,2],
 }
-```
+``` -->
 
-</details>
+<!-- </details> -->
 
-<details>
+<!-- <details>
   <summary>response</summary>
 
 ```json
@@ -445,7 +445,7 @@ POST /orders/buy/:productId
 
 #
 #
-#
+# -->
 
 
   - buy/:productId  |  Купити продукт 201
