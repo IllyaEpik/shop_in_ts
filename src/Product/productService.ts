@@ -5,7 +5,13 @@ export const productService = {
     createProduct(data: ProductInput) {
         return productRepository.create(data);
     },
-    updateProduct(id: number, data: ProductInput) {
+    getAll() {
+        return productRepository.getAll();
+    },
+    getById(id: number) {
+        return productRepository.getOne(id);
+    },
+    updateProduct(id: number, data: Partial<ProductInput>) {
         return productRepository.update(id, data);
     },
     deleteProduct(id: number) {

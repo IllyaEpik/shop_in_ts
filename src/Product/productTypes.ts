@@ -7,4 +7,6 @@ export interface ProductInput {
     price: number;
     discount: number;
     quantityLimit: number;
+    categoryId: number;
+    userId: number;
 }

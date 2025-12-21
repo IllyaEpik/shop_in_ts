@@ -1,15 +1,18 @@
-
 import prisma from "../db/prismaDB";
 import { ProductInput } from "./productTypes";
 
-// prisma
-// const prisma = new PrismaClient();
 export const productRepository = {
     create(data: ProductInput) {
         return prisma.product.create({ data });
     },
+    getAll() {
+        return prisma.product.findMany();
+    },
     
-    update(id: number, data: ProductInput) {
+    getOne(id: number) {
+        return prisma.product.findUnique({ where: { id } });
+    },
+    update(id: number, data: Partial<ProductInput>) {
         return prisma.product.update({
             where: { id },
             data,
