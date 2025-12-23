@@ -5,6 +5,7 @@ export function checkAndSend(data:any,res:Response,succsesStatus=200){
             const splitedData = data.split("|")
             let [text,stringStatus] = splitedData
             const status = Number(stringStatus)
+            
             if (isNaN(status) || status>599 || status<100){
                 res.status(500).json(`status is wrong (for delevoper), status: ${status}, data ${data}`)
                 return

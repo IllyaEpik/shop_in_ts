@@ -57,7 +57,7 @@ export interface IRepositoryContract {
 export interface IServiceContract {
     registation: (user: any) => Promise<string>;
     login: (userData: any) => Promise<string>;
-    me: (id: number) => Promise<string>;
+    me: (id: number) => Promise<UserSecurity>;
 
     addAddress: (userId: number, city: string, street: string) => Promise<string>;
     getAllAddresses: (userId: number) => Promise<string>;

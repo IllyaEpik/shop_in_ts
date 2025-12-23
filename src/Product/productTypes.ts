@@ -7,6 +7,7 @@ export interface ProductInput {
     price: number;
     discount: number;
     quantityLimit: number;
+    // categoryId: number;
 }
 export interface CreateParameterInput {
   key: string;
@@ -33,5 +34,6 @@ export interface CreateBlockInput {
 // type category = Prisma.CategoryCreateNestedOneWithoutProductsInput
 export type CreateProductInput = Omit<Prisma.ProductCreateInput, "category">
 export type CreateProductInputWithCategory = CreateProductInput & {
-  categoryId:number
+  categoryId:number 
+    userId: number;
 }

@@ -5,6 +5,8 @@ import authMiddleware from "../middlewares/auth-Middleware";
 const router = Router();
 
 router.post("/create", authMiddleware, controllerMethods.create);
+router.get("/get", authMiddleware, controllerMethods.getAll);
+router.get("/get/:id", controllerMethods.getById);
 router.put("/update/:id", authMiddleware, controllerMethods.update);
 router.delete("/delete/:id", authMiddleware, controllerMethods.delete);
 

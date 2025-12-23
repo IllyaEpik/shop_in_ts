@@ -26,7 +26,7 @@ export const ServiceMethods: IServiceContract = {
     },
     me: async (id) => {
         const user = await repositoryMethods.getUserById(id);
-        return JSON.stringify(user) + "|200";
+        return user;
     },
     addAddress: async (userId, city, street) => {
         const addr = await repositoryMethods.createAddress(userId, city, street);
