@@ -20,7 +20,7 @@ export const orderRepository:IRepositoryContract = {
         const orderItem = await prisma.orderItem.createMany({
             data: dataWithOrder
         })
-        //
+        
         
         return order
         // return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
