@@ -3,29 +3,41 @@ import { productService } from "./productService";
 import { checkAndSend } from "../config/sender";
 
 export const controllerMethods = {
-    async create(req: any, res: Response) {
-        try {
-            const { name, price, categoryId } = req.body;
-            if (!name || !price || !categoryId) {
-                return res.status(422).json({ message: "Некорктні дані при створенні продукту" });
-            }
-
-            const product = await productService.createProduct({
-                ...req.body,
-                userId: req.user.id
-            });
-            checkAndSend(product, res, 201);
-        } catch (error) {
-            res.status(500).json({ message: "Ошибка создания продукта" });
+    async create(req: Request, res: Response) {
+        // try {
+        console.log(req.body)
+        const { name, price, categoryId } = req.body;
+        if (!name || !price || !categoryId) {
+            return res.status(422).json({ message: "Некорктні дані при створенні продукту" });
         }
+        console.log("qwe")
+        const product = await productService.createProduct({
+            ...req.body,
+            userId: res.locals.userId
+        });
+        console.log("3434")
+        checkAndSend(product, res, 201);
+        // } catch (error) {
+        //     console.log(error)
+        //     res.status(500).json({ message: error });
+        // }
     },
 
     async getAll(req: Request, res: Response) {
         try {
-            const products = await productService.getAll();
+            const isSortByDate = (req.query.sort as string || undefined) == "new"
+            let skip = Number(req.query.skip)
+            let count = Number(req.query.count)
+            if (isNaN(count)){
+                count = 25
+            }
+            if (isNaN(skip)){
+                skip = 0
+            }
+            const products = await productService.getAll(isSortByDate,skip,count);
             checkAndSend(products, res, 200);
         } catch (error) {
-            res.status(401).json({ message: "Неавторизований доступ" });
+            res.status(401).json({ message: error });
         }
     },
     async getById(req: Request, res: Response) {

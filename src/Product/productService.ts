@@ -5,8 +5,8 @@ export const productService = {
     createProduct(data: CreateProductInputWithCategory) {
         return productRepository.create(data);
     },
-    getAll() {
-        return productRepository.getAll();
+    getAll(isSortByDate:boolean,skip:number,count:number) {
+        return productRepository.getAll(isSortByDate,skip,count);
     },
     getById(id: number) {
         return productRepository.getOne(id);

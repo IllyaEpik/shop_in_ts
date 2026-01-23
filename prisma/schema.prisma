@@ -20,7 +20,6 @@ model Parameter {
 	title       String
 	bigText     String
 	description String
-
 	
     product       Product @relation(fields: [productId], references: [id])
     productId     Int
@@ -43,6 +42,7 @@ enum DeliveryStatus {
 	RECIVED
 	CANCELLED
 }
+
 model Order {
 	id             Int            @id @default(autoincrement())
 	deliveryStatus DeliveryStatus @default(COLLECTED)
@@ -75,7 +75,11 @@ model Product {
   	blocks            Block[]
 	categoryId        Int
 	category 		  Category @relation(fields: [categoryId], references: [id])
-	orderItems     OrderItem[] 
+	orderItems        OrderItem[] 
+	userId            Int      
+	popular           Int      @default(0)
+	createdAt         DateTime @default(now())
+	
 }
 
 model User {

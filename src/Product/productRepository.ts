@@ -4,19 +4,33 @@ import { CreateProductInput, CreateProductInputWithCategory, ProductInput } from
 export const productRepository = {
     create(data: CreateProductInputWithCategory) {
         const { categoryId, ...other } = data;
-        return prisma.product.create({
-            data: {
-                ...other,
-                category: { connect: { id: categoryId } }
+        // try{
+            return prisma.product.create({
+                data: {
+                    ...other,
+                    category: { connect: { id: categoryId } }
+                }
+            });
+
+        // }catch(error){
+        //     return error
+        // }
+    },
+    getAll(isSortByDate:boolean,skip:number,count:number) {
+        console.log(skip,count,isSortByDate)
+        return prisma.product.findMany({
+            skip,
+            take:count,
+            orderBy: isSortByDate ?  {
+                createdAt: "asc"
+            } : {
+                popular: "asc"
             }
         });
     },
-    getAll() {
-        return prisma.product.findMany();
-    },
     
     getOne(id: number) {
-        return prisma.product.findUnique({ where: { id } });
+        return prisma.product.findUnique({ where: { id } })
     },
     update(id: number, data: Partial<ProductInput>) {
         return prisma.product.update({

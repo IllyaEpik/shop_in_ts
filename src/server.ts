@@ -3,10 +3,12 @@ import authRouter from "./User/UserRouter";
 import productRouter from "./Product/productRouter";
 import { categoryRouter } from './Category/categoryRouter';
 import orderRouter from "./Order/OrderRouter";
-// import productRouter from "./Product/productRouter";
-
+import cors from "cors";
 const app = express();
-
+app.use(cors({
+    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+    credentials: true
+}))
 app.use(express.json());
 app.use("/products", productRouter);
 app.use("/user", authRouter);

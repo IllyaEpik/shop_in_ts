@@ -32,8 +32,8 @@ export interface CreateBlockInput {
 //   blocks: CreateBlockInput[];
 // }
 // type category = Prisma.CategoryCreateNestedOneWithoutProductsInput
-export type CreateProductInput = Omit<Prisma.ProductCreateInput, "category">
+export type CreateProductInput = Prisma.ProductCreateInput
 export type CreateProductInputWithCategory = CreateProductInput & {
   categoryId:number 
-    userId: number;
+    // userId: number;
 }

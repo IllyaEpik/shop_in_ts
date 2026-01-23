@@ -389,15 +389,7 @@ must have token in header
 
 
 -  /orders  |  Orders
-
-<!-- 
-| endpoint  |  Description  |  Success Code
-| :--- | :---: | ---: |
-| buy/:productId  |  Купити продукт | 201
-| get/ |  Отримати всі замовлення | 200 -->
-<!-- #
-#
-#
+<!--
 ### Buy Product
 ```http
 POST /orders/buy/:productId
