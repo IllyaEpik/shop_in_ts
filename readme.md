@@ -17,9 +17,9 @@ We chose this project because we think it will be interesting to create. And we 
 - [Попович Марк](https://github.com/markpopovich9)  |  [Popovych Mark](https://github.com/markpopovich9)
 
 
-##  ендпоінти/ Endpoints
+#  ендпоінти/ Endpoints
 
-### user/ |  User
+## user/ |  User
 
 ```http
 POST /user/register
@@ -337,6 +337,46 @@ DELETE /user/me
 | 204  |  Інформацію видалено |
 | 401  |  Неавторизований доступ |
 | 500  |  Помилка сервера при видаленні інформації |
+</details>
+<details>
+  <summary>request</summary>
+
+must have token in header
+
+
+</details>
+<details>
+  <summary>response</summary>
+
+```json
+
+{
+  "id": 1,
+  "email": "string",
+  "name": "string",
+  "fatherName": "string",
+  "phone": "string",
+  "avatar": "string",
+  "createdAt": "2024-01-01T00:00:00.000Z",
+  "updatedAt": "2024-01-01T00:00:00.000Z"
+}
+
+```
+</details>
+
+## /products  |  Products
+
+```http
+POST /products/
+```
+<details>
+  <summary>status codes</summary>
+
+| Code | Description |
+| :--- | :--- |
+| 201  |  Інформацію створено |
+| 401  |  Неавторизований доступ |
+| 500  |  Помилка сервера при створенні інформації |
 </details>
 <details>
   <summary>request</summary>
