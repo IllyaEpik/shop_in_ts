@@ -31,9 +31,6 @@ export interface IControllerContract {
         req:Request<object, UserSecurity | string, object>,
         res:Response<string | UserSecurity | string, {userId:number}>
     ) => Promise<void>
-    // registation: (req: Request, res: Response) => Promise<void>;
-    // login: (req: Request, res: Response) => Promise<void>;
-    // me: (req: Request, res: Response) => Promise<void>;
     addAddress: (req: Request, res: Response) => Promise<void>;
     getAddresses: (req: Request, res: Response) => Promise<void>;
     updateAddress: (req: Request, res: Response) => Promise<void>;

@@ -1,8 +1,8 @@
 import prisma from "../db/prismaDB";
-import { CreateProductInput, CreateProductInputWithCategory, ProductInput } from "./productTypes";
+import { CreateProductInput, CreateProductInputWithCategory, IRepositoryContract, ProductInput } from "./productTypes";
 
-export const productRepository = {
-    create(data: CreateProductInputWithCategory) {
+export const productRepository:IRepositoryContract = {
+    create(data) {
         const { categoryId, ...other } = data;
         // try{
             return prisma.product.create({
@@ -29,7 +29,7 @@ export const productRepository = {
         });
     },
     
-    getOne(id: number) {
+    getById(id: number) {
         return prisma.product.findUnique({ where: { id } })
     },
     update(id: number, data: Partial<ProductInput>) {

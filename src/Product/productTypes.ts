@@ -21,19 +21,19 @@ export interface CreateBlockInput {
   parameters: CreateParameterInput[];
 }
 
-// export interface CreateProductInput {
-//   name: string;
-//   description: string;
-//   price: number;
-//   discount: number;
-//   quantityLimit: number;
-
-//   images: string[];
-//   blocks: CreateBlockInput[];
-// }
-// type category = Prisma.CategoryCreateNestedOneWithoutProductsInput
 export type CreateProductInput = Prisma.ProductCreateInput
 export type CreateProductInputWithCategory = CreateProductInput & {
-  categoryId:number 
-    // userId: number;
+  categoryId:number
+}
+export type Product= Prisma.ProductGetPayload<{
+	include:{
+
+	}
+}>
+export interface IRepositoryContract {
+    create: (data: CreateProductInputWithCategory) => Promise<Product>;
+    getAll: (isSortByDate:boolean,skip:number,count:number) => Promise<Product[]>;
+    getById: (id: number) => Promise<Product | null>;
+    update: (id: number, data: Partial<ProductInput>) => Promise<Product>;
+    delete: (id: number) => Promise<Product>;
 }

@@ -17,15 +17,11 @@ export const controllerMethods = {
         });
         console.log("3434")
         checkAndSend(product, res, 201);
-        // } catch (error) {
-        //     console.log(error)
-        //     res.status(500).json({ message: error });
-        // }
     },
 
     async getAll(req: Request, res: Response) {
         try {
-            const isSortByDate = (req.query.sort as string || undefined) == "new"
+            const isSortByDate = (req.query.sort as string || undefined) === "new"
             let skip = Number(req.query.skip)
             let count = Number(req.query.count)
             if (isNaN(count)){
@@ -37,7 +33,7 @@ export const controllerMethods = {
             const products = await productService.getAll(isSortByDate,skip,count);
             checkAndSend(products, res, 200);
         } catch (error) {
-            res.status(401).json({ message: error });
+            res.status(500).json({ message: error });
         }
     },
     async getById(req: Request, res: Response) {
