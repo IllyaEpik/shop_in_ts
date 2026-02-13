@@ -20,7 +20,7 @@ model Parameter {
 	title       String
 	bigText     String
 	description String
-	
+	unit        String @default("")
     product       Product @relation(fields: [productId], references: [id])
     productId     Int
 }
@@ -86,7 +86,8 @@ model User {
 	id         Int       @id @default(autoincrement())
 	email      String    @unique
 	password   String
-	name       String?
+	user       String?
+	username   String?
 	lastName   String?
 	fatherName String?
 	cardNumber String?

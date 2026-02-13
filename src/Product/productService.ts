@@ -1,20 +1,26 @@
 import { productRepository } from "./productRepository";
-import {CreateProductInput, CreateProductInputWithCategory, ProductInput } from "./productTypes";
+import {CreateProductInput, CreateProductInputWithCategory, IServiceContract, ProductInput } from "./productTypes";
 
-export const productService = {
-    createProduct(data: CreateProductInputWithCategory) {
+export const productService:IServiceContract = {
+    create(data: CreateProductInputWithCategory) {
         return productRepository.create(data);
     },
-    getAll(isSortByDate:boolean,skip:number,count:number) {
-        return productRepository.getAll(isSortByDate,skip,count);
+    getAll(isSortByDate:boolean,skip:number,count:number,categoryId:number) {
+        return productRepository.getAll(isSortByDate,skip,count,categoryId);
     },
     getById(id: number) {
-        return productRepository.getOne(id);
+        return productRepository.getById(id);
     },
-    updateProduct(id: number, data: Partial<ProductInput>) {
+    update(id: number, data: Partial<ProductInput>) {
         return productRepository.update(id, data);
     },
-    deleteProduct(id: number) {
+    delete(id: number) {
         return productRepository.delete(id);
+    },
+    countProducts(categoryId: number) {
+        return productRepository.countProducts(categoryId);
+    },
+    getSimilar(id:number) {
+        return productRepository.getSimilar(id);
     },
 };

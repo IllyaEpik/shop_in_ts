@@ -11,7 +11,7 @@ export const controllerMethods = {
             return res.status(422).json({ message: "Некорктні дані при створенні продукту" });
         }
         console.log("qwe")
-        const product = await productService.createProduct({
+        const product = await productService.create({
             ...req.body,
             userId: res.locals.userId
         });
@@ -24,13 +24,14 @@ export const controllerMethods = {
             const isSortByDate = (req.query.sort as string || undefined) === "new"
             let skip = Number(req.query.skip)
             let count = Number(req.query.count)
+            let categoryId = Number(req.query.id)
             if (isNaN(count)){
                 count = 25
             }
             if (isNaN(skip)){
                 skip = 0
             }
-            const products = await productService.getAll(isSortByDate,skip,count);
+            const products = await productService.getAll(isSortByDate,skip,count,categoryId);
             checkAndSend(products, res, 200);
         } catch (error) {
             res.status(500).json({ message: error });
@@ -55,7 +56,7 @@ export const controllerMethods = {
                 return res.status(403).json({ message: "Відсутні права для оновлення продукту" });
             }
 
-            const updated = await productService.updateProduct(id, req.body);
+            const updated = await productService.update(id, req.body);
             checkAndSend(updated, res, 200);
         } catch (error) {
             res.status(422).json({ message: "Некоректні дані при оновленні продукту" });
@@ -72,10 +73,21 @@ export const controllerMethods = {
             if (product.userId !== req.user.id) {
                 return res.status(403).json({ message: "відсутні права для видалення продукту" });
             }
-            await productService.deleteProduct(id);
-            res.status(204).send();
+            
+            res.status(204).send(await productService.delete(id));
         } catch (error) {
             res.status(500).json({ message: "Помилка при видаленні" });
         }
     },
+    async countProducts(req: any, res: Response){
+        try {
+            const id = Number(req.params.categoryId);
+            const countOfProducts = await productService.countProducts(id);
+            res.status(200).send({count:countOfProducts});
+
+        } catch (error) {
+            res.status(500).json({ message: "Помилка при підрахунку" });
+        }
+        
+    }
 };

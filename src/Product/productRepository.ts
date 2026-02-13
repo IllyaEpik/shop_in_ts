@@ -2,10 +2,10 @@ import prisma from "../db/prismaDB";
 import { CreateProductInput, CreateProductInputWithCategory, IRepositoryContract, ProductInput } from "./productTypes";
 
 export const productRepository:IRepositoryContract = {
-    create(data) {
+    async create(data) {
         const { categoryId, ...other } = data;
         // try{
-            return prisma.product.create({
+            return await prisma.product.create({
                 data: {
                     ...other,
                     category: { connect: { id: categoryId } }
@@ -16,30 +16,53 @@ export const productRepository:IRepositoryContract = {
         //     return error
         // }
     },
-    getAll(isSortByDate:boolean,skip:number,count:number) {
+    async countProducts(categoryId){
+        const whereFilter = !isNaN(categoryId) ? { categoryId } : {};
+        console
+        return await prisma.product.count({
+            where:whereFilter
+        })
+    },
+    async getAll(isSortByDate,skip,count,categoryId) {
         console.log(skip,count,isSortByDate)
-        return prisma.product.findMany({
+        const whereFilter = !isNaN(categoryId) ? { categoryId } : {};
+
+        return await prisma.product.findMany({
             skip,
             take:count,
             orderBy: isSortByDate ?  {
                 createdAt: "asc"
             } : {
                 popular: "asc"
+            },
+            where:whereFilter
+        });
+    },
+    async getSimilar(id){
+        const product = await prisma.product.findUnique({ where: { id } })
+        if (!product) {
+            throw new Error("product is not found")
+        }
+        return await prisma.product.findMany({
+            where: {
+                price: {
+                    gte: product.price*1.1,
+                    lte: product.price*0.1
+                }
             }
         });
     },
-    
-    getById(id: number) {
-        return prisma.product.findUnique({ where: { id } })
+    async getById(id) {
+        return await prisma.product.findUnique({ where: { id } })
     },
-    update(id: number, data: Partial<ProductInput>) {
-        return prisma.product.update({
+    async update(id, data) {
+        return await prisma.product.update({
             where: { id },
             data,
         });
     },
-    delete(id: number) {
-        return prisma.product.delete({
+    async delete(id: number) {
+        return await prisma.product.delete({
             where: { id },
         });
     },

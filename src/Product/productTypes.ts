@@ -15,25 +15,41 @@ export interface CreateParameterInput {
 }
 
 export interface CreateBlockInput {
-  title: string;
-  description: string;
-  demo?: string;
-  parameters: CreateParameterInput[];
+	title: string;
+	description: string;
+	demo?: string;
+	parameters: CreateParameterInput[];
 }
 
 export type CreateProductInput = Prisma.ProductCreateInput
 export type CreateProductInputWithCategory = CreateProductInput & {
-  categoryId:number
+  	categoryId:number
 }
 export type Product= Prisma.ProductGetPayload<{
 	include:{
 
 	}
 }>
+export interface ProductWithCount {
+    count:number | undefined,
+    products:Product[]
+} 
 export interface IRepositoryContract {
     create: (data: CreateProductInputWithCategory) => Promise<Product>;
-    getAll: (isSortByDate:boolean,skip:number,count:number) => Promise<Product[]>;
+    getAll: (isSortByDate:boolean,skip:number,count:number,categoryId:number) => Promise<Product[]>;
+    countProducts: (categoryId:number) => Promise<number>
     getById: (id: number) => Promise<Product | null>;
     update: (id: number, data: Partial<ProductInput>) => Promise<Product>;
     delete: (id: number) => Promise<Product>;
+    getSimilar: (id:number) => Promise<Product[] | string>;
+}
+
+export interface IServiceContract {
+    create: (data: CreateProductInputWithCategory) => Promise<Product>;
+    getAll: (isSortByDate:boolean,skip:number,count:number,categoryId:number) => Promise<Product[]>;
+    countProducts: (categoryId:number) => Promise<number>
+    getById: (id: number) => Promise<Product | null>;
+    update: (id: number, data: Partial<ProductInput>) => Promise<Product>;
+    delete: (id: number) => Promise<Product>;
+    getSimilar: (id:number) => Promise<Product[] | string>;
 }
