@@ -26,5 +26,42 @@ export const repositoryMethods: IRepositoryContract = {
     updateUser: async (id, data) => 
         await prisma.user.update({ where: { id }, data }),       
     deleteUser: async (id) => 
-        await prisma.user.delete({ where: { id } })
-};
+        await prisma.user.delete({ where: { id } }),
+    createToken: async (userId,token) => {
+        const expiresAt = new Date()
+        expiresAt.setMinutes(expiresAt.getMinutes() + 60);
+        
+        return await prisma.token.create({ 
+            data: { 
+                confirmationToken: token, 
+                expiresAt, 
+                userId
+            },
+            include:{
+                user:true
+            }
+        })
+    },
+    deleteToken: async (token) => {
+
+        return await prisma.token.delete({
+            where: {
+                confirmationToken: token
+            },
+            include: {
+                user: true
+            }
+        })
+    },
+    getUserByToken: async (token) => {
+
+        return await prisma.token.findUnique({
+            where: {
+                confirmationToken: token
+            },
+            include: {
+                user: true
+            }
+        })
+    },
+}

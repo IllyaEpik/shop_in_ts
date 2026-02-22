@@ -11,7 +11,7 @@ router.post("/address", authMiddleware, controllerMethods.addAddress);
 router.get("/get-addresses", authMiddleware, controllerMethods.getAddresses);
 router.patch("/update-address/:id", authMiddleware, controllerMethods.updateAddress);
 router.delete("/remove-address/:id", authMiddleware, controllerMethods.removeAddress);
-router.patch("/update", authMiddleware, controllerMethods.updateMe);
+router.patch("/", authMiddleware, controllerMethods.updateMe);
 router.delete("/delete", authMiddleware, controllerMethods.deleteAccount);
 
 export default router;

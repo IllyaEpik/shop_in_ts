@@ -62,5 +62,13 @@ export const controllerMethods: IControllerContract = {
     deleteAccount: async (req, res) => {
         const result = await ServiceMethods.deleteMe(res.locals.userId);
         checkAndSend(result, res, 204);
+    },
+    resetPassword: async(req,res) => {
+        const result = await ServiceMethods.resetPassword(req.body.email);
+        checkAndSend(result, res, 201);
+
+    },
+    confirmResetPassword: async (req,res) => {
+
     }
 };

@@ -21,3 +21,5 @@ const HOST = "127.0.0.1"
 app.listen(PORT,HOST, () =>{ 
     console.log(`http://${HOST}:${PORT}`)
 })
+
+

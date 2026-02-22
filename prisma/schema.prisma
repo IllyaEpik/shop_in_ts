@@ -53,13 +53,13 @@ model Order {
 }
 
 model OrderItem {
-  id                  Int     @id @default(autoincrement())
-  orderId             Int
-  productId           Int
-  quantity            Int
+	id                  Int     @id @default(autoincrement())
+	orderId             Int
+	productId           Int
+	quantity            Int
 
-  order   Order   @relation(fields: [orderId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+	order   Order   @relation(fields: [orderId], references: [id])
+	product Product @relation(fields: [productId], references: [id])
 }
 
 
@@ -87,6 +87,7 @@ model User {
 	email      String    @unique
 	password   String
 	user       String?
+	name       String?
 	username   String?
 	lastName   String?
 	fatherName String?
@@ -95,6 +96,7 @@ model User {
 	addresses  Address[]
 	createdAt  DateTime  @default(now())
 	updatedAt  DateTime  @updatedAt
+	token      Token[]
 }
 
 model Address {
@@ -106,9 +108,19 @@ model Address {
 	street     String?
 	house      String?
 }
+
 model Category{
 	id Int @id @default(autoincrement()) 
 	urlName String @unique
 	name String
 	products  Product[]
+}
+
+model Token{
+	id Int @id @default(autoincrement()) 
+	createdAt  DateTime  @default(now())
+	confirmationToken Int  @unique
+	expiresAt         DateTime
+	userId            Int      @unique
+	user              User     @relation(fields: [userId], references: [id])
 }

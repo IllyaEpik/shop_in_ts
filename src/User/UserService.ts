@@ -3,6 +3,8 @@ import { repositoryMethods } from "./UserRepository";
 import jwt from "jsonwebtoken";
 import JWT_SECRET from "../config/env";
 import { compare, hash } from "bcryptjs";
+import { randomInt } from "node:crypto";
+import { transporter } from "../config/sendEmail";
 
 export const ServiceMethods: IServiceContract = {
     registation: async (user) => {
@@ -57,5 +59,40 @@ export const ServiceMethods: IServiceContract = {
     deleteMe: async (userId) => {
         await repositoryMethods.deleteUser(userId);
         return "deleted|204";
+    },
+    resetPassword: async (email) => {
+        
+        const confirmationToken = randomInt(999999);
+        const confirmUrl = `http://127.0.0.1:8000/confirm/${confirmationToken}`;
+        
+        await transporter.sendMail({
+            from: '"dronesShop" <illyaepik@gmail.com>',
+            to: email,
+            subject: "confirm reset password",
+            html: `
+                <div style="font-family: Arial, sans-serif; text-align: center;">
+                    <h1>hello!</h1>
+                    <p>Click on this link to confirm:</p>
+                    <a href="${confirmUrl}"
+                        style="background-color: #4CAF50; 
+                                color: white; 
+                                padding: 14px 25px; 
+                                text-decoration: none; 
+                                display: inline-block; 
+                                border-radius: 4px;
+                                font-weight: bold;">
+                        confirm reset password
+                    </a>
+                </div>
+            `})
+        return "succses |200"
+    },
+    confirmResetPassword: async (token,password) => {
+        const tokenWithUser = await repositoryMethods.getUserByToken(token)
+        if (!tokenWithUser) return "error|404"
+        repositoryMethods.updateUser(tokenWithUser.userId,{
+            password:await hash(password, 10)
+        })
+        return "ok |200"
     }
 };

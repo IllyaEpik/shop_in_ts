@@ -2,25 +2,25 @@ import { productRepository } from "./productRepository";
 import {CreateProductInput, CreateProductInputWithCategory, IServiceContract, ProductInput } from "./productTypes";
 
 export const productService:IServiceContract = {
-    create(data: CreateProductInputWithCategory) {
+    create(data) {
         return productRepository.create(data);
     },
-    getAll(isSortByDate:boolean,skip:number,count:number,categoryId:number) {
+    getAll(isSortByDate,skip,count,categoryId) {
         return productRepository.getAll(isSortByDate,skip,count,categoryId);
     },
-    getById(id: number) {
+    getById(id) {
         return productRepository.getById(id);
     },
-    update(id: number, data: Partial<ProductInput>) {
+    update(id, data) {
         return productRepository.update(id, data);
     },
-    delete(id: number) {
+    delete(id) {
         return productRepository.delete(id);
     },
-    countProducts(categoryId: number) {
+    countProducts(categoryId) {
         return productRepository.countProducts(categoryId);
     },
-    getSimilar(id:number) {
+    getSimilar(id) {
         return productRepository.getSimilar(id);
     },
 };
