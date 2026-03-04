@@ -14,11 +14,12 @@ export type UserSecurity = Prisma.UserGetPayload<{
         password:true
     }
 }>;
+export type IUserUpdate = Prisma.UserUpdateInput
 export interface IResetPassword {
     email:string
 }
 export interface IConfirmResetPassword {
-    token:string
+    password:string
 }
 export type IToken = Prisma.TokenGetPayload<{
     include:{
@@ -68,7 +69,7 @@ export interface IControllerContract {
         res:Response<string>
     ) => Promise<void>
     confirmResetPassword: (
-        req:Request<object, string, IConfirmResetPassword>,
+        req:Request<{token:number}, string, IConfirmResetPassword>,
         res:Response<string>
     ) => Promise<void>
 }
@@ -82,12 +83,13 @@ export interface IRepositoryContract {
     getAddressById: (id: number) => Promise<any | null>;
     updateAddress: (id: number, city: string, street: string) => Promise<any>;
     deleteAddress: (id: number) => Promise<any>;
-    updateUser: (id: number, data: any) => Promise<any>;
+    updateUser: (id: number, data: IUserUpdate) => Promise<any>;
     deleteUser: (id: number) => Promise<any>;
     createToken: (userId: number,token:number) => Promise<IToken | null>
-    deleteToken: (token: number) => Promise<null | IToken>
+    deleteTokenByToken: (token: number) => Promise<null | IToken>
+    deleteTokenByUserId: (id: number) => Promise<null | IToken>
     getUserByToken: (token: number) => Promise<null | IToken>
-    
+    changePassword: (id:number,password: string) => Promise<IUser | null>
 }
 export interface IServiceContract {
     registation: (user: any) => Promise<string>;

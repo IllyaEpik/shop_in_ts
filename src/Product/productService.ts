@@ -23,4 +23,7 @@ export const productService:IServiceContract = {
     getSimilar(id) {
         return productRepository.getSimilar(id);
     },
+    getManyById(idList) {
+        return productRepository.getManyById(idList);
+    },
 };

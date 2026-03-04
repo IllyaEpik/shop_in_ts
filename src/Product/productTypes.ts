@@ -42,6 +42,7 @@ export interface IRepositoryContract {
     update: (id: number, data: Partial<ProductInput>) => Promise<Product>;
     delete: (id: number) => Promise<Product>;
     getSimilar: (id:number) => Promise<Product[] | string>;
+    getManyById: (idArray: number[]) => Promise<Product[] | string>
 }
 
 export interface IServiceContract {
@@ -52,4 +53,5 @@ export interface IServiceContract {
     update: (id: number, data: Partial<ProductInput>) => Promise<Product>;
     delete: (id: number) => Promise<Product>;
     getSimilar: (id:number) => Promise<Product[] | string>;
+    getManyById: (idArray: number[]) => Promise<Product[] | string>
 }

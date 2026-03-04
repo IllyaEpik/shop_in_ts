@@ -9,7 +9,8 @@ router.get("/:id", controllerMethods.getById);
 router.get("/count/:categoryId", controllerMethods.countProducts);
 
 router.post("", authMiddleware, controllerMethods.create);
-
+router.post("/idArray", controllerMethods.getManyById);
+// getManyById
 router.put("/:id", authMiddleware, controllerMethods.update);
 
 router.delete("/:id", authMiddleware, controllerMethods.delete);

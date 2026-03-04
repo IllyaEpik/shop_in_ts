@@ -55,6 +55,12 @@ export const productRepository:IRepositoryContract = {
     async getById(id) {
         return await prisma.product.findUnique({ where: { id } })
     },
+    async getManyById(idArray) {
+        console.log(idArray,21332123)
+        return await prisma.product.findMany({ where: { id: {
+            in: idArray
+        } } })
+    },
     async update(id, data) {
         return await prisma.product.update({
             where: { id },

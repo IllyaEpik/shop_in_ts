@@ -42,8 +42,8 @@ export const repositoryMethods: IRepositoryContract = {
             }
         })
     },
-    deleteToken: async (token) => {
-
+    deleteTokenByToken: async (token) => {
+        
         return await prisma.token.delete({
             where: {
                 confirmationToken: token
@@ -53,8 +53,19 @@ export const repositoryMethods: IRepositoryContract = {
             }
         })
     },
+    deleteTokenByUserId: async (id) => {
+        
+        return await prisma.token.delete({
+            where: {
+                userId: id
+            },
+            include: {
+                user: true
+            }
+        })
+    },
     getUserByToken: async (token) => {
-
+        
         return await prisma.token.findUnique({
             where: {
                 confirmationToken: token
@@ -64,4 +75,15 @@ export const repositoryMethods: IRepositoryContract = {
             }
         })
     },
+    changePassword: async (id,password) => {
+        if (!id) return null
+        return await prisma.user.update({
+            where: {
+                id
+            },
+            data:{
+                password
+            }
+        })
+    }
 }

@@ -44,6 +44,13 @@ export const controllerMethods = {
         }
         checkAndSend(product, res, 200);
     },
+    async getManyById(req: Request, res: Response) {
+        const products = await productService.getManyById(req.body.idArray);
+        if (!products) {
+            return res.status(404).json({ message: "Продукти не знайдени" });
+        }
+        checkAndSend(products, res, 200);
+    },
 
     async update(req: any, res: Response) {
         try {

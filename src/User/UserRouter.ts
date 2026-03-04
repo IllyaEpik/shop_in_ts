@@ -13,5 +13,7 @@ router.patch("/update-address/:id", authMiddleware, controllerMethods.updateAddr
 router.delete("/remove-address/:id", authMiddleware, controllerMethods.removeAddress);
 router.patch("/", authMiddleware, controllerMethods.updateMe);
 router.delete("/delete", authMiddleware, controllerMethods.deleteAccount);
+router.post("/password-change", controllerMethods.resetPassword)
+router.post("/confirm-password-change/:token", controllerMethods.confirmResetPassword)
 
 export default router;

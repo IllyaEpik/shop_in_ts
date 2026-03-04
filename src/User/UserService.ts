@@ -63,8 +63,16 @@ export const ServiceMethods: IServiceContract = {
     resetPassword: async (email) => {
         
         const confirmationToken = randomInt(999999);
-        const confirmUrl = `http://127.0.0.1:8000/confirm/${confirmationToken}`;
-        
+        const confirmUrl = `http://127.0.0.1:3000/confirm-password-change/${confirmationToken}`;
+        const user = await repositoryMethods.getUserByEmail(email)
+        if (!user) return "wrong email|404"
+        console.log(user.id, 1111233232)
+        try {
+            await repositoryMethods.deleteTokenByUserId(user.id)
+        } catch (error) {
+            console.log()
+        }   
+        await repositoryMethods.createToken(user.id,confirmationToken)
         await transporter.sendMail({
             from: '"dronesShop" <illyaepik@gmail.com>',
             to: email,
@@ -90,6 +98,7 @@ export const ServiceMethods: IServiceContract = {
     confirmResetPassword: async (token,password) => {
         const tokenWithUser = await repositoryMethods.getUserByToken(token)
         if (!tokenWithUser) return "error|404"
+        console.log(password, "satana")
         repositoryMethods.updateUser(tokenWithUser.userId,{
             password:await hash(password, 10)
         })

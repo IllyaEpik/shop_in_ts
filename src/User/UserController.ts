@@ -69,6 +69,16 @@ export const controllerMethods: IControllerContract = {
 
     },
     confirmResetPassword: async (req,res) => {
+        const token = Number(req.params.token)
+        console.log(token,req.params.token)
+        const password = req.body.password
+        if (password === ""){
+            await res.status(400).json("error")
+            return
+        }
+        console.log(password, "satana32")
+        const result = await ServiceMethods.confirmResetPassword(token,password)
+        checkAndSend(result, res, 200);
 
     }
 };
